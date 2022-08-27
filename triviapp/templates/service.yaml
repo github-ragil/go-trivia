@@ -1,0 +1,37 @@
+{{- if .Values.backend.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "triviabackend-service.fullname" . }}
+  labels: 
+    app.kubernetes.io/stack: {{ include "triviabackend.fullname" . }}
+    {{- include "triviapp.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector: 
+    app: {{ include "triviabackend.fullname" . }}
+{{- end }}
+---
+{{- if .Values.frontend.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "triviafrontend-service.fullname" . }}
+  labels: 
+    app.kubernetes.io/stack: {{ include "triviafrontend.fullname" . }}
+    {{- include "triviapp.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.frontend.service.type }}
+  ports:
+    - port: {{ .Values.frontend.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector: 
+    app: {{ include "triviafrontend.fullname" . }}
+{{- end }}
