@@ -91,6 +91,11 @@ Resources:
           FromPort: 8472
           IpProtocol: udp
           ToPort: 8472
+        - CidrIp: 0.0.0.0/0
+          Description: "Jenkins Services"
+          FromPort: 8080
+          IpProtocol: tcp
+          ToPort: 8080
       Tags: 
         - Key: Name
           Value: Kuberentes SG Worker Node
