@@ -19,6 +19,7 @@ frontend:
 
   image:
     repository: mraagil/trivia-frontend
+    tag: "kitabisa"
     pullPolicy: Always
     ports:
       containerPort: 80
@@ -51,6 +52,8 @@ frontend:
     backend: ""
 
   service:
+    externalIPs :
+    - 192.168.200.20
     type: NodePort
     port: 80
 
@@ -82,6 +85,7 @@ backend:
 
   image:
     repository: mraagil/trivia-backend
+    tag: "kitabisa"
     pullPolicy: Always
 
   hpa:
