@@ -1,4 +1,4 @@
-module github.com/github-ragil/go-trivia
+module github.com/lmnzr/triviabackend
 
 go 1.12
 

@@ -64,8 +64,8 @@ make docker-push
 
 ## Frontend Application
 
-[More Info Here](https://github.com/github-ragil/go-trivia/tree/master/frontend)
+[More Info Here](https://github.com/lmnzr/go-triviapp/tree/master/frontend)
 
 ## Helm Chart
 
-[More Info Here](https://github.com/github-ragil/go-trivia)
+[More Info Here](https://github.com/lmnzr/go-triviapp)

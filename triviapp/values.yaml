@@ -18,7 +18,7 @@ frontend:
   replicaCount: 1
 
   image:
-    repository: lmnzr/triviafrontend
+    repository: mraagil/trivia-frontend
     pullPolicy: Always
     ports:
       containerPort: 80
@@ -81,7 +81,7 @@ backend:
   replicaCount: 1
 
   image:
-    repository: lmnzr/triviabackend
+    repository: mraagil/trivia-backend
     pullPolicy: Always
 
   hpa:

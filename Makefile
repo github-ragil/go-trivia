@@ -4,11 +4,10 @@ frontendhpa = false
 backendhpa = false
 namespace = default
 frontendtype = NodePort
-appname = lmnzr
+appname = mraagil
 
 define README
 Welcome To Triviapp Helm Makefile
-By lmnzr (azuresky102@gmail.com)
 
 This makefile is intended to make installing, uninstalling, scale up, scale down, & test
 Triviapp more easier and consistent.
