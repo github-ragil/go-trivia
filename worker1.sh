@@ -34,16 +34,6 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io make git wget -y
 
 sudo mkdir -p /etc/systemd/system/docker.service.d
 
-sudo cat > /etc/docker/daemon.json <<EOF
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2"
-}
-EOF
 # Restart docker.
 sudo usermod -aG docker ubuntu && newgrp docker
 sudo systemctl daemon-reload
