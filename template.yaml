@@ -106,12 +106,13 @@ Resources:
       UserData:
         Fn::Base64: !Sub |
             #!/bin/bash -xe
-            cd /home/ubuntu
-            echo pwd
-            su ubuntu -c "git clone https://github.com/github-ragil/go-trivia.git"
+            sudo apt-get update -y
+            sudo apt-get install git -y
+            sudo git clone https://github.com/github-ragil/go-trivia.git
             cd go-trivia/
-            su ubuntu -c "chmod +x worker1.sh"
-            su ubuntu -c "bash worker1.sh"
+            sudo chmod +x worker1.sh
+            sudo chmod 777 worker1.sh
+            bash worker1.sh"
       SecurityGroupIds:
         - !Ref WorkerNodeKubernetesSG
       Tags: 
@@ -135,12 +136,14 @@ Resources:
       UserData:
         Fn::Base64: !Sub |
             #!/bin/bash -xe
-            cd /home/ubuntu
-            echo pwd
-            su ubuntu -c "git clone https://github.com/github-ragil/go-trivia.git"
+            sudo apt-get update -y
+            sudo apt-get install git -y
+            sudo git clone https://github.com/github-ragil/go-trivia.git
             cd go-trivia/
-            su ubuntu -c "chmod +x master.sh"
-            su ubuntu -c "bash master.sh"
+            sudo chmod +x master.sh jenkins.sh
+            sudo chmod 777 master.sh jenkins.sh
+            bash master.sh
+            bash jenkins.sh
       SecurityGroupIds:
         - !Ref MasterNodeKubernetesSG
       Tags: 
