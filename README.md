@@ -4,11 +4,14 @@
 
 ## Infrastructure
 The Helm chart will deploy 2 services: Backend service and Frontend service. The backend service have ClusterIP network and run on port 8080. Hence, it can only be accessed from inside the cluster. This is useful to protect our backend API from being exposed to the public. The frontend service can have ClusterIP, NodePort, & LoadBalancer Network. Though you are most likely want to expose the frontend to the public, you probably don't want to use ClusterIP for this one. I use NodePort for the default. The frontend application can call the backend by providing the application container with environment variable BACKEND_URL. Assuming both application run in the same namespace, by default I use the name of backend service for the BACKEND_URL value and let the cluster DNS to connect them. If you have any domain for the application you can enable nginx ingress, make sure you have nginx ingress controller installed in your cluster.
-at frontend, i use dns for connect the backend, because if localhost or ip it will change in kubernetes pods, the app won't work because the frontend pods can't connect to backend pods. so, if you want to change the dns there is api.go in frontend/cmd/triviafrontend and you can see like this in api.go ("BACKEND_URL", "http://mraagil-triviapp-backend.default.svc.cluster.local:8080")
+
 
 ## Helm Chart
 
 You can easily deploy the application to the Kubernetes cluster using Helm Package Manager. The helm chart is included in this repository. To make your life even easier I also add Makefile. Hence, you can use make command to install, uninstall, plan, test, and etc
+
+## Notes
+At frontend, i use dns for connect the backend, because if localhost or ip it will change in kubernetes pods, the app won't work because the frontend pods can't connect to backend pods. so, if you want to change the dns / ip as you want there file is api.go in frontend/cmd/triviafrontend and you can see like this in api.go ("BACKEND_URL", "http://mraagil-triviapp-backend.default.svc.cluster.local:8080")
 
 ### Makefile Manual
 
