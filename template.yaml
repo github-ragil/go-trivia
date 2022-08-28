@@ -40,22 +40,27 @@ Resources:
           Description: "etcd server client API"
           FromPort: 2379
           IpProtocol: tcp
-          ToPort: 4380
+          ToPort: 2380
         - CidrIp: 0.0.0.0/0
-          Description: "kubelet API"
+          Description: "kubelet API, kube-scheduler & kube-controller-manager"
           FromPort: 10250
           IpProtocol: tcp
-          ToPort: 10250
-        - CidrIp: 0.0.0.0/0
-          Description: "kube-scheduler"
-          FromPort: 10251
-          IpProtocol: tcp
-          ToPort: 10251
-        - CidrIp: 0.0.0.0/0
-          Description: "kube-controller-manager"
-          FromPort: 10252
-          IpProtocol: tcp
           ToPort: 10252
+        - CidrIp: 0.0.0.0/0
+          Description: "Kubernetes kubelet API server for read-only access with no authentication (master and worker nodes)"
+          FromPort: 10255
+          IpProtocol: tcp
+          ToPort: 10255
+        - CidrIp: 0.0.0.0/0
+          Description: "Platform Agent (master and worker nodes) & Platform API Server (operator node)"
+          FromPort: 8090
+          IpProtocol: tcp
+          ToPort: 8091
+        - CidrIp: 0.0.0.0/0
+          Description: "Flannel overlay network, VxLAN backend (master and worker nodes)"
+          FromPort: 8472
+          IpProtocol: udp
+          ToPort: 8472
       Tags: 
         - Key: Name
           Value: Kuberentes SG Master Node
@@ -81,6 +86,11 @@ Resources:
           FromPort: 30000
           IpProtocol: tcp
           ToPort: 32767
+        - CidrIp: 0.0.0.0/0
+          Description: "Flannel overlay network, VxLAN backend (master and worker nodes)"
+          FromPort: 8472
+          IpProtocol: udp
+          ToPort: 8472
       Tags: 
         - Key: Name
           Value: Kuberentes SG Worker Node
