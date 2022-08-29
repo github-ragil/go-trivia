@@ -161,7 +161,7 @@ resource "aws_security_group" "worker" {
 
 # Creating EC2 instances in public subnets
 resource "aws_instance" "master" {
-  ami = "ami-04ff9e9b51c1f62ca"
+  ami = "ami-00c5331644ad576ad"
   instance_type = "t3.small"
   key_name = "triviapp_key"
   subnet_id = "${aws_subnet.dev-public-1.id}"
@@ -179,7 +179,7 @@ resource "aws_instance" "master" {
 }
 
 resource "aws_instance" "worker" {
-  ami = "ami-04ff9e9b51c1f62ca"
+  ami = "ami-00c5331644ad576ad"
   instance_type = "t3.small"
   key_name = "triviapp_key"
   subnet_id = "${aws_subnet.dev-public-1.id}"
