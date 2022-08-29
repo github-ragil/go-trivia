@@ -13,6 +13,7 @@ pipeline{
 			sh 'sudo bash ./script/build-docker.sh'
 
 
+
   }
   }
   
