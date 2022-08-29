@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "ap-southeast-1"
+  region = "ap-southeast-3"
 }
 
 # Creating VPC,name, CIDR and Tags
@@ -18,7 +18,7 @@ resource "aws_subnet" "dev-public-1" {
   vpc_id                  = aws_vpc.dev.id
   cidr_block              = "10.0.1.0/24"
   map_public_ip_on_launch = "true"
-  availability_zone       = "ap-southeast-1a"
+  availability_zone       = "ap-southeast-3"
 
   tags = {
     Name = "dev-public-1"
