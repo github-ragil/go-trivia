@@ -1,4 +1,4 @@
-
+#!/bin/bash
 echo "Disabling swap & remove unattended upgrades...."
 sudo swapoff -a
 sudo sed -i.bak '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab

@@ -10,7 +10,7 @@ pipeline{
 
 	stage('Automation Build, Push & Deploy') {
 		steps {
-			sh 'sudo bash ./qa/script/script-qa.sh'
+			sh 'sudo bash ./dev/script/script-dev.sh'
   }
   }
   
