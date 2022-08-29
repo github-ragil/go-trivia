@@ -16,6 +16,7 @@ pipeline{
 			sh 'sudo docker push mraagil/trivia-frontend:kitabisa'
 			su ubuntu -c 'cd /go-trivia'
 			su ubuntu -c 'make upgrade'
+
   }
   }
   
