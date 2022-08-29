@@ -172,7 +172,7 @@ resource "aws_instance" "master" {
     volume_size = "20"
     delete_on_termination = true
   }
- user_data = "${file("userdata.sh")}"
+ user_data = "${file("master.sh")}"
  tags = {
     Name = "MasterNode"
   }
