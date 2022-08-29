@@ -192,6 +192,6 @@ resource "aws_instance" "worker" {
   }
  user_data = "${file("worker1.sh")}"
  tags = {
-    Name = "MasterNode"
+    Name = "WorkerNode"
   }
 }
