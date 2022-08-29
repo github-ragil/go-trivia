@@ -56,7 +56,7 @@ resource "aws_route_table_association" "dev-public-1-a" {
 
 # Creating Security Group using Terraform
 
-resource "aws_security_group" "master" {
+resource "aws_security_group" "master-SG" {
   name = "master-grp"
   description = "Security Group for Master"
   vpc_id = aws_vpc.dev.id
@@ -123,7 +123,7 @@ resource "aws_security_group" "master" {
   }
 }
 
-resource "aws_security_group" "worker" {
+resource "aws_security_group" "worker-SG" {
   name = "worker-grp"
   description = "Security Group for Worker"
   vpc_id = aws_vpc.dev.id
@@ -160,12 +160,12 @@ resource "aws_security_group" "worker" {
 }
 
 # Creating EC2 instances in public subnets
-resource "aws_instance" "master" {
+resource "aws_instance" "master-server" {
   ami = "ami-00c5331644ad576ad"
   instance_type = "t3.small"
   key_name = "triviapp_key"
   subnet_id = "${aws_subnet.dev-public-1.id}"
-  vpc_security_group_ids = [aws_security_group.master.id]
+  vpc_security_group_ids = [aws_security_group.master-SG.id]
   associate_public_ip_address = true
   root_block_device {
     volume_type = "gp2"
@@ -178,12 +178,12 @@ resource "aws_instance" "master" {
   }
 }
 
-resource "aws_instance" "worker" {
+resource "aws_instance" "worker-server" {
   ami = "ami-00c5331644ad576ad"
   instance_type = "t3.small"
   key_name = "triviapp_key"
   subnet_id = "${aws_subnet.dev-public-1.id}"
-  vpc_security_group_ids = [aws_security_group.worker.id]
+  vpc_security_group_ids = [aws_security_group.worker-SG.id]
   associate_public_ip_address = true
   root_block_device {
     volume_type = "gp2"
