@@ -7,7 +7,7 @@ import (
 )
 
 func getTrivia() (string, error) {
-	backendURL := getEnv("BACKEND_URL", "http://mraagil-triviapp-backend.default.svc.cluster.local:8080")
+	backendURL := getEnv("BACKEND_URL", "http://mraagil-triviapp-backend:8080")
 	var trivia string
 
 	resp, err := http.Get(backendURL)

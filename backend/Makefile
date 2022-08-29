@@ -3,7 +3,6 @@ packagename = trivia-backend
 
 define README
 Welcome To Triviapp Application Makefile
-By lmnzr (azuresky102@gmail.com)
 
 If you are like me, you will be frustrated by how many times you use the up button to find that command line you use 
 to build the application previously. The Makefile comes to the rescue. Now Building, Running, Dockerize, 

@@ -3,7 +3,6 @@ packagename = trivia-frontend
 
 define README
 Welcome To Triviapp Application Makefile
-By lmnzr (azuresky102@gmail.com)
 
 If you are like me, you will be frustrated by how many times you use the up button to find that command line you use 
 to build the application previously. The Makefile comes to the rescue. Now Building, Running, Dockerize, 
@@ -51,7 +50,7 @@ clean:
 run:
 	@ go build -o ./build/$(packagename).bin $(moduleowner)$(packagename)/cmd/$(packagename)  && ./build/$(packagename).bin	  
 docker: 
-	@ sudo docker build -t lmnzr/$(packagename):latest .
+	@ sudo docker build -t mraagil/$(packagename):latest .
 docker-push: 
 	@ sudo docker build -t mraagil/$(packagename):latest . && docker push mraagil/$(packagename):latest
 docker-run: 

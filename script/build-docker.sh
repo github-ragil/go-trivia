@@ -1,4 +1,6 @@
 sudo rsync -av * /go-trivia/
-su ubuntu -c 'cd /go-trivia/frontend && make docker-push'
-su ubuntu -c 'cd /go-trivia/backend && make docker-push'
+sudo docker build /go-trivia/frontend/. -t mraagil/trivia-frontend:latest
+sudo docker build /go-trivia/backend/. -t mraagil/trivia-backend:latest
+sudo docker push mraagil/trivia-backend:kitabisa
+sudo docker push mraagil/trivia-frontend:kitabisa
 su ubuntu -c 'cd /go-trivia && make uninstall && make install'
