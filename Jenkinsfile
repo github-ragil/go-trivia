@@ -7,10 +7,15 @@ pipeline{
 			}
 			
   }  
-	stage('Deploy Changes') {
+	stage('Build Docker') {
 		steps {
-			sh 'sudo rsync -av * /go-trivia/' 
-			su ubuntu -c 'sudo docker-compose -f /livecode/docker-compose.yml up -d'
+			sh 'sudo rsync -av * /go-trivia/'
+			sh 'sudo docker build /go-trivia/frontend/. -t mraagil/trivia-frontend:kitabisa'
+			sh 'sudo docker build /go-trivia/backend/. -t mraagil/trivia-backend:kitabisa'
+			sh 'sudo docker push mraagil/trivia-backend:kitabisa'
+			sh 'sudo docker push mraagil/trivia-frontend:kitabisa'
+			su ubuntu -c 'cd /go-trivia'
+			su ubuntu -c 'make upgrade'
   }
   }
   
