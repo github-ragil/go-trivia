@@ -15,8 +15,6 @@ spec:
     metadata:
       labels:
         app: {{ include "triviabackend.fullname" . }}
-      annotations:
-        releaseTime: {{ dateInZone "2006-01-02 15:04:05Z" (now) "UTC"| quote }} 
     spec:
     {{- with .Values.backend.imagePullSecrets }}
       imagePullSecrets:
@@ -76,8 +74,6 @@ spec:
     metadata:
       labels:
         app: {{ include "triviafrontend.fullname" . }}
-      annotations:
-        releaseTime: {{ dateInZone "2006-01-02 15:04:05Z" (now) "UTC"| quote }} 
     spec:
     {{- with .Values.frontend.imagePullSecrets }}
       imagePullSecrets:

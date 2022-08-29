@@ -1,7 +1,5 @@
 provider "aws" {
-  region = "ap-southeast-1"
-  access_key=var.AWS_ACCESS_KEY
-  secret_key=var.AWS_SECRET_KEY
+  region = "ap-southeast-3"
 }
 
 # Creating VPC,name, CIDR and Tags
@@ -20,7 +18,7 @@ resource "aws_subnet" "dev-public-1" {
   vpc_id                  = aws_vpc.dev.id
   cidr_block              = "10.0.1.0/24"
   map_public_ip_on_launch = "true"
-  availability_zone       = "ap-southeast-1a"
+  availability_zone       = "ap-southeast-3a"
 
   tags = {
     Name = "dev-public-1"
@@ -170,9 +168,9 @@ resource "aws_security_group" "worker-SG" {
 
 # Creating EC2 instances in public subnets
 resource "aws_instance" "master-server" {
-  ami = "ami-04ff9e9b51c1f62ca"
+  ami = "ami-00c5331644ad576ad"
   instance_type = "t3.small"
-  key_name = "apsoutheast1_key"
+  key_name = "triviapp_key"
   subnet_id = "${aws_subnet.dev-public-1.id}"
   vpc_security_group_ids = [aws_security_group.master-SG.id]
   associate_public_ip_address = true
@@ -188,9 +186,9 @@ resource "aws_instance" "master-server" {
 }
 
 resource "aws_instance" "worker-server" {
-  ami = "ami-04ff9e9b51c1f62ca"
+  ami = "ami-00c5331644ad576ad"
   instance_type = "t3.small"
-  key_name = "apsoutheast1_key"
+  key_name = "triviapp_key"
   subnet_id = "${aws_subnet.dev-public-1.id}"
   vpc_security_group_ids = [aws_security_group.worker-SG.id]
   associate_public_ip_address = true
