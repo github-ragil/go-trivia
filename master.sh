@@ -73,5 +73,5 @@ kubeadm token create --print-join-command > /home/ubuntu/token.txt
 echo "Git clone gitub.com/github-ragil/go-trivia"
 sudo git clone https://github.com/github-ragil/go-trivia.git
 sudo su
-sudo echo 'jenkins ALL=(ALL:ALL) NOPASSWD:ALL' > /etc/sudoers
-sudo echo 'ubuntu ALL=(ALL:ALL) NOPASSWD:ALL' > /etc/sudoers
+sudo echo 'jenkins ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers
+sudo echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers
