@@ -32,6 +32,7 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+      nodePort : {{ .Values.frontend.service.nodePort }}
   selector: 
     app: {{ include "triviafrontend.fullname" . }}
 {{- end }}
