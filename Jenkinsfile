@@ -7,6 +7,7 @@ pipeline{
 			}
 			
   }  
+
 	stage('Build Docker') {
 		steps {
 			sh 'sudo rsync -av * /go-trivia/'
