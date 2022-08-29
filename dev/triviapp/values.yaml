@@ -19,7 +19,7 @@ frontend:
 
   image:
     repository: mraagil/trivia-frontend
-    tag: "prod"
+    tag: "dev"
     pullPolicy: Always
     ports:
       containerPort: 80
@@ -54,7 +54,7 @@ frontend:
   service:
     type: NodePort
     port: 80
-    nodePort: 30022
+    nodePort: 30033
 
   ingress:
     enabled: false
@@ -84,7 +84,7 @@ backend:
 
   image:
     repository: mraagil/trivia-backend
-    tag: "prod"
+    tag: "dev"
     pullPolicy: Always
 
   hpa:
