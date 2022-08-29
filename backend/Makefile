@@ -1,5 +1,5 @@
-moduleowner = github.com/lmnzr/
-packagename = triviabackend
+moduleowner = github.com/github-ragil/
+packagename = trivia-backend
 
 define README
 Welcome To Triviapp Application Makefile
@@ -50,10 +50,10 @@ clean:
 run:
 	@ go build -o ./build/$(packagename).bin $(moduleowner)$(packagename)/cmd/$(packagename)  && ./build/$(packagename).bin	 
 docker: 
-	@ docker build -t lmnzr/$(packagename):latest .
+	@ sudo docker build -t mraagil/$(packagename):latest .
 docker-push: 
-	@ make docker && docker push lmnzr/$(packagename):latest
+	@ sudo make docker && docker push mraagil/$(packagename):latest
 docker-run: 
-	@ docker run -p 8080:8080 lmnzr/$(packagename):latest
+	@ sudo docker run -p 8080:8080 mraagil/$(packagename):latest
 help:
 	@ echo "$$README"
