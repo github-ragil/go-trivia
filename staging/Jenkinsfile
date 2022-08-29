@@ -10,7 +10,7 @@ pipeline{
 
 	stage('Automation Build, Push & Deploy') {
 		steps {
-			sh 'sudo bash ./script/script-staging.sh'
+			sh 'sudo bash ./staging/script/script-staging.sh'
   }
   }
   
