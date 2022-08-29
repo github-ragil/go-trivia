@@ -51,10 +51,9 @@ frontend:
     backend: ""
 
   service:
-    externalIPs :
-    - 192.168.200.20
     type: NodePort
     port: 80
+    nodePort: 30011
 
   ingress:
     enabled: false
