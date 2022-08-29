@@ -4,4 +4,5 @@ sudo docker build /go-trivia/backend/. -t mraagil/trivia-backend:staging
 sudo docker push mraagil/trivia-backend:staging
 sudo docker push mraagil/trivia-frontend:staging
 su ubuntu -c 'kubectl create namespace staging'
+su ubuntu -c 'make install namespace=staging'
 su ubuntu -c 'cd /go-trivia/staging && make uninstall namespace=staging && make install namespace=staging'
