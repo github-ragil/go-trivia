@@ -19,6 +19,7 @@ frontend:
 
   image:
     repository: mraagil/trivia-frontend
+    tag: "prod"
     pullPolicy: Always
     ports:
       containerPort: 80
@@ -83,6 +84,7 @@ backend:
 
   image:
     repository: mraagil/trivia-backend
+    tag: "prod"
     pullPolicy: Always
 
   hpa:
