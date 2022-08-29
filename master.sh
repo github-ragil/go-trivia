@@ -54,16 +54,16 @@ sudo apt install kubeadm -y
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 sudo sleep 180
 
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+mkdir -p /home/ubuntu/.kube
+sudo cp -i /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
+sudo chown $(id -u):$(id -g) /home/ubuntu/.kube/config
 echo "Installing Flannel..."
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 echo "Kubernetes Installation finished..."
 echo "Waiting 30 seconds for the cluster to go online..."
 sudo sleep 60
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
-sudo export KUBECONFIG=$HOME/.kube/config
+sudo export KUBECONFIG=/home/ubuntu/.kube/config
 echo "Testing Kubernetes namespaces... "
 kubectl get pods --all-namespaces
 echo "Testing Kubernetes nodes... "
@@ -72,6 +72,3 @@ echo "All ok ;)"
 kubeadm token create --print-join-command > /home/ubuntu/token.txt
 echo "Git clone gitub.com/github-ragil/go-trivia"
 sudo git clone https://github.com/github-ragil/go-trivia.git
-sudo su
-sudo echo 'jenkins ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers
-sudo echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers
