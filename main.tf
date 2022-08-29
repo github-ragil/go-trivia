@@ -170,9 +170,9 @@ resource "aws_security_group" "worker-SG" {
 
 # Creating EC2 instances in public subnets
 resource "aws_instance" "master-server" {
-  ami = "ami-00c5331644ad576ad"
+  ami = "ami-04ff9e9b51c1f62ca"
   instance_type = "t3.small"
-  key_name = "triviapp_key"
+  key_name = "apsoutheast1_key"
   subnet_id = "${aws_subnet.dev-public-1.id}"
   vpc_security_group_ids = [aws_security_group.master-SG.id]
   associate_public_ip_address = true
@@ -188,9 +188,9 @@ resource "aws_instance" "master-server" {
 }
 
 resource "aws_instance" "worker-server" {
-  ami = "ami-00c5331644ad576ad"
+  ami = "ami-04ff9e9b51c1f62ca"
   instance_type = "t3.small"
-  key_name = "triviapp_key"
+  key_name = "apsoutheast1_key"
   subnet_id = "${aws_subnet.dev-public-1.id}"
   vpc_security_group_ids = [aws_security_group.worker-SG.id]
   associate_public_ip_address = true
