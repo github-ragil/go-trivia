@@ -52,7 +52,7 @@ sudo rm /etc/containerd/config.toml
 sudo systemctl restart containerd
 sudo apt install kubeadm -y
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
-sudo sleep 180
+sudo sleep 60
 
 mkdir -p /home/ubuntu/.kube
 sudo cp -i /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
@@ -60,7 +60,7 @@ sudo chown $(id -u):$(id -g) /home/ubuntu/.kube/config
 echo "Installing Flannel..."
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 echo "Kubernetes Installation finished..."
-echo "Waiting 30 seconds for the cluster to go online..."
+echo "Waiting 60 seconds for the cluster to go online..."
 sudo sleep 60
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 sudo export KUBECONFIG=/home/ubuntu/.kube/config
