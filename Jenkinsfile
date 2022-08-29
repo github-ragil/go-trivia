@@ -10,7 +10,8 @@ pipeline{
 
 	stage('Build Docker') {
 		steps {
-			
+			sh 'sudo bash ./script/build-docker.sh'
+
 
   }
   }
