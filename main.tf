@@ -56,16 +56,55 @@ resource "aws_route_table_association" "dev-public-1-a" {
 
 # Creating Security Group using Terraform
 
-resource "aws_security_group" "ssh" {
-  name = "ssh-grp"
-  description = "Allow HTTP and SSH traffic via Terraform"
+resource "aws_security_group" "master" {
+  name = "master-grp"
+  description = "Security Group for Master"
   vpc_id = aws_vpc.dev.id
-
   ingress {
-    from_port   = 80
-    to_port     = 80
+    from_port   = 10250
+    to_port     = 10255
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+    description = "Kubernetes kubelet API server"
+  }
+  ingress {
+    from_port   = 30000
+    to_port     = 32767
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "NodePort Services"
+  }
+  
+  ingress {
+    from_port   = 8472
+    to_port     = 8472
+    protocol    = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Flannel overlay network, VxLAN backend (master and worker nodes)"
+  }
+
+  ingress {
+    from_port   = 8090
+    to_port     = 8091
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Platform API Server"
+  }
+
+  ingress {
+    from_port   = 6443
+    to_port     = 6443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Kubernetes API server"
+  }
+
+  ingress {
+    from_port   = 2379
+    to_port     = 2380
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Kubernetes etcd server client API"
   }
 
   ingress {
@@ -73,6 +112,43 @@ resource "aws_security_group" "ssh" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+    description = "SSH"
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "worker" {
+  name = "worker-grp"
+  description = "Security Group for Worker"
+  vpc_id = aws_vpc.dev.id
+  ingress {
+    from_port   = 30000
+    to_port     = 32767
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "NodePort Services"
+  }
+  
+  ingress {
+    from_port   = 8472
+    to_port     = 8472
+    protocol    = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Flannel overlay network, VxLAN backend (master and worker nodes)"
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "SSH"
   }
 
   egress {
@@ -84,12 +160,12 @@ resource "aws_security_group" "ssh" {
 }
 
 # Creating EC2 instances in public subnets
-resource "aws_instance" "webserver" {
+resource "aws_instance" "master" {
   ami = "ami-04ff9e9b51c1f62ca"
   instance_type = "t3.small"
   key_name = "triviapp_key"
   subnet_id = "${aws_subnet.dev-public-1.id}"
-  vpc_security_group_ids = [aws_security_group.ssh.id]
+  vpc_security_group_ids = [aws_security_group.master.id]
   associate_public_ip_address = true
   root_block_device {
     volume_type = "gp2"
@@ -98,6 +174,24 @@ resource "aws_instance" "webserver" {
   }
  user_data = "${file("userdata.sh")}"
  tags = {
-    Name = "Triviapp"
+    Name = "MasterNode"
+  }
+}
+
+resource "aws_instance" "worker" {
+  ami = "ami-04ff9e9b51c1f62ca"
+  instance_type = "t3.small"
+  key_name = "triviapp_key"
+  subnet_id = "${aws_subnet.dev-public-1.id}"
+  vpc_security_group_ids = [aws_security_group.worker.id]
+  associate_public_ip_address = true
+  root_block_device {
+    volume_type = "gp2"
+    volume_size = "20"
+    delete_on_termination = true
+  }
+ user_data = "${file("worker1.sh")}"
+ tags = {
+    Name = "MasterNode"
   }
 }
