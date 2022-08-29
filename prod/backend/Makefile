@@ -1,0 +1,58 @@
+moduleowner = github.com/github-ragil/
+packagename = trivia-backend
+
+define README
+Welcome To Triviapp Application Makefile
+
+If you are like me, you will be frustrated by how many times you use the up button to find that command line you use 
+to build the application previously. The Makefile comes to the rescue. Now Building, Running, Dockerize, 
+and Deploying the application is easier thanks to the make command.
+
+In Order to run everything correctly,
+- Make sure you have go and docker installed properly.
+- The user have correct permission to write and delete file.
+- Login docker to the image repository
+
+Example
+--Starting project--
+make init
+
+--Get dependencies--
+make update
+
+--Run the Application--
+make run
+
+--Cleanup Build Result--
+make clean
+
+--Dockerize the Application--
+make docker
+
+--Run the Dockerize Application--
+make docker-run
+
+--Dockerize then Push the Image to Image Registry--
+make docker-push
+
+endef
+export README
+
+# Build And Development
+init:
+	@ go mod init $(moduleowner)$(packagename)
+	@ go mod vendor 
+update:
+	@ go mod vendor
+clean:
+	@ sudo rm -rf $(packagename).bin $(packagename).exe cover.txt cover.html cover.out build
+run:
+	@ go build -o ./build/$(packagename).bin $(moduleowner)$(packagename)/cmd/$(packagename)  && ./build/$(packagename).bin	 
+docker: 
+	@ sudo docker build -t mraagil/$(packagename):latest .
+docker-push: 
+	@ sudo make docker && docker push mraagil/$(packagename):latest
+docker-run: 
+	@ sudo docker run -p 8080:8080 mraagil/$(packagename):latest
+help:
+	@ echo "$$README"
