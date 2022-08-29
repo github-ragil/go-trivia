@@ -9,7 +9,7 @@ sudo apt install jenkins -y
 sudo systemctl start jenkins
 sudo systemctl enable jenkins
 
-sudo cat /var/lib/jenkins/secrets/initialAdminPassword > /home/passwordjenkins.txt
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword > /home/ubuntu/passwordjenkins.txt
 echo "Disabling swap & remove unattended upgrades...."
 sudo swapoff -a
 sudo sed -i.bak '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
@@ -29,7 +29,7 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 ## Install Docker CE.
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io make git wget -y
-
+sudo sleep 60
 # Restart docker.
 sudo usermod -aG docker ubuntu && newgrp docker
 sudo systemctl restart docker

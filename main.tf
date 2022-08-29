@@ -61,6 +61,13 @@ resource "aws_security_group" "master-SG" {
   description = "Security Group for Master"
   vpc_id = aws_vpc.dev.id
   ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Jenkins Service"
+  }
+  ingress {
     from_port   = 10250
     to_port     = 10255
     protocol    = "tcp"
