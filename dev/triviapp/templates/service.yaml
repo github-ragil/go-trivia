@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/stack: {{ include "triviabackend.fullname" . }}
     {{- include "triviapp.labels" . | nindent 4 }}
   annotations:
-    deploymentTime: {{ now | date "2006-01-02T15:04:05" }}
+    releaseTime: {{ dateInZone "2006-01-02 15:04:05Z" (now) "UTC"| quote }} 
 spec:
   type: ClusterIP
   ports:
@@ -28,7 +28,7 @@ metadata:
     app.kubernetes.io/stack: {{ include "triviafrontend.fullname" . }}
     {{- include "triviapp.labels" . | nindent 4 }}
   annotations:
-    deploymentTime: {{ now | date "2006-01-02T15:04:05" }}
+    releaseTime: {{ dateInZone "2006-01-02 15:04:05Z" (now) "UTC"| quote }} 
 spec:
   type: {{ .Values.frontend.service.type }}
   ports:
