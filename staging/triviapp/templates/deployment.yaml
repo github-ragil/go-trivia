@@ -1,0 +1,120 @@
+{{- if .Values.backend.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "triviabackend-deployment.fullname" . }}
+  labels:
+    app.kubernetes.io/stack: {{ include "triviabackend.fullname" . }}
+    {{- include "triviapp.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.backend.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "triviabackend.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "triviabackend.fullname" . }}
+    spec:
+    {{- with .Values.backend.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "triviapp.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.backend.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ include "triviabackend.fullname" . }}
+          securityContext:
+            {{- toYaml .Values.backend.securityContext | nindent 12 }}
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag | default "latest" }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 8080
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}
+    {{- with .Values.backend.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.backend.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.backend.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+{{- end }}
+---
+{{- if .Values.frontend.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "triviafrontend-deployment.fullname" . }}
+  labels:
+    app.kubernetes.io/stack: {{ include "triviafrontend.fullname" . }}
+    {{- include "triviapp.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.frontend.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "triviafrontend.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "triviafrontend.fullname" . }}
+    spec:
+    {{- with .Values.frontend.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "triviapp.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.frontend.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ include "triviafrontend.fullname" . }}
+          securityContext:
+            {{- toYaml .Values.frontend.securityContext | nindent 12 }}
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag | default "latest" }}"
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          env:
+            - name: BACKEND_URL
+              value:  {{ include "triviabackend-service.url" .}}
+          ports:
+            - name: http
+              containerPort: {{ .Values.frontend.image.ports.containerPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: {{ .Values.frontend.image.ports.containerPort }}
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: {{ .Values.frontend.image.ports.containerPort }}
+          resources:
+            {{- toYaml .Values.frontend.resources | nindent 12 }}
+    {{- with .Values.frontend.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.frontend.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.frontend.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}                              
+{{- end }}

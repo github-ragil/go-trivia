@@ -1,0 +1,37 @@
+{{- if .Values.frontend.enabled -}}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "triviafrontend-service.fullname" . }}-test-connection"
+  labels:
+    app.kubernetes.io/stack: {{ include "triviafrontend.fullname" . }}
+    {{- include "triviapp.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "triviafrontend-service.fullname" . }}:{{ .Values.frontend.service.port }}/ping']
+  restartPolicy: Never
+{{- end }}
+---
+{{- if .Values.backend.enabled -}}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "triviabackend-service.fullname" . }}-test-connection"
+  labels:
+    app.kubernetes.io/stack: {{ include "triviabackend.fullname" . }}
+    {{- include "triviapp.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "triviabackend-service.fullname" . }}:8080/ping']
+  restartPolicy: Never
+{{- end }}

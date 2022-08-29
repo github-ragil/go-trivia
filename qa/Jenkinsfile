@@ -8,12 +8,9 @@ pipeline{
 			
   }  
 
-	stage('Build Docker') {
+	stage('Automation Build, Push & Deploy') {
 		steps {
-			sh 'sudo bash ./script/build-docker.sh'
-
-
-
+			sh 'sudo bash ./qa/script/script-qa.sh'
   }
   }
   
