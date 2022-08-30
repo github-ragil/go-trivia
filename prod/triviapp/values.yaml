@@ -30,11 +30,9 @@ frontend:
     minReplica: 1
     metrics:
       - type: Resource
-        resources:
-          limits:
-            cpu: 500m
-          requests:
-            cpu: 200m
+        resource:
+          name: cpu
+          targetAverageUtilization: 60
 
   imagePullSecrets: []
 
@@ -95,11 +93,9 @@ backend:
     minReplica: 1
     metrics:
       - type: Resource
-        resources:
-          limits:
-            cpu: 500m
-          requests:
-            cpu: 200m
+        resource:
+          name: cpu
+          targetAverageUtilization: 60
 
   imagePullSecrets: []
 

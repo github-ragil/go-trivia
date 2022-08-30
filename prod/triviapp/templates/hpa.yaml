@@ -1,5 +1,5 @@
 {{- if .Values.backend.hpa.enabled -}}
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name:  {{ include "triviabackend.fullname" . }}
@@ -20,7 +20,7 @@ spec:
 {{- end }}
 ---
 {{- if .Values.frontend.hpa.enabled -}}
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name:  {{ include "triviafrontend.fullname" . }}
