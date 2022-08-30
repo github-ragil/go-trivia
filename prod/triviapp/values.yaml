@@ -32,7 +32,9 @@ frontend:
       - type: Resource
         resources:
           limits:
-            cpu: 50m
+            cpu: 500m
+          requests:
+            cpu: 200m
 
   imagePullSecrets: []
 
@@ -95,7 +97,9 @@ backend:
       - type: Resource
         resources:
           limits:
-            cpu: 50m
+            cpu: 500m
+          requests:
+            cpu: 200m
 
   imagePullSecrets: []
 
