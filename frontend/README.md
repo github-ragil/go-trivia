@@ -61,11 +61,3 @@ Dockerize then Push the Image to Image Registry
 ```
 make docker-push
 ```
-
-## Backend Application
-
-[More Info Here](https://github.com/lmnzr/go-triviapp/tree/master/backend)
-
-## Helm Chart
-
-[More Info Here](https://github.com/lmnzr/go-triviapp)
