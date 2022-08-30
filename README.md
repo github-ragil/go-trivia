@@ -11,14 +11,15 @@ The Helm chart will deploy 2 services: Backend service and Frontend service. The
 You can easily deploy the application to the Kubernetes cluster using Helm Package Manager. The helm chart is included in this repository. To make your life even easier I also add Makefile. Hence, you can use make command to install, uninstall, plan, test, and etc
 
 ## Notes
-1. At frontend, i use dns or name the service for connect the backend, because if localhost, the app won't work because the frontend pods can't connect to backend pods. so, if you want to change the dns / ip / service as you want there file is api.go in frontend/cmd/triviafrontend and you can see like this in api.go ("BACKEND_URL", "http://mraagil-triviapp-backend:8080")
+1. At frontend, i've' use name the service for connect the backend, because if localhost, the app won't work because the frontend pods can't connect to backend pods. so, if you want to change the service as you want there file is api.go in frontend/ and you can see like this in api.go ("BACKEND_URL", "http://mraagil-triviapp-backend:8080")
 
 2. This repo integrate with terraform. it will create all vpc, subnet, security group, instance 1 master and 1 worker. integrate with installation jenkins, kubectl, etc script on master server you can use it via terraform cloud.
 
-3. To make easier on deploy various environment, there is a folder prod, staging and dev. each folder have a Jenkinsfile and a script to building, containerizing and deployment every changes in various environments
+3. To make easier on deploy various environment, there is a folder prod, staging and dev. each folder have a Jenkinsfile and a script to automate building, containerizing and deployment every changes in various environments
 
 4. Only in the prod i've create script for auto-scalling
 
+5. Make sure to install metric server on MasterNode correctly to use auto-scalling (prod)
 
 ### Makefile Manual
 
