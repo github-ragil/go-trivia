@@ -31,8 +31,10 @@ frontend:
     metrics:
       - type: Resource
         resource:
-          name: cpu
-          targetAverageUtilization: 60
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
 
   imagePullSecrets: []
 
@@ -94,8 +96,10 @@ backend:
     metrics:
       - type: Resource
         resource:
-          name: cpu
-          targetAverageUtilization: 60
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
 
   imagePullSecrets: []
 
