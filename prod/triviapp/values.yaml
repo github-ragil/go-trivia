@@ -66,11 +66,7 @@ frontend:
     #    hosts:
     #      - chart-example.local
 
-  resources: 
-     limits:
-       cpu: 500m
-      requests:
-       cpu: 200m
+  resources: {}
 
   nodeSelector: {}
 
@@ -92,7 +88,6 @@ backend:
     maxReplica: 3
     minReplica: 1
     targetCPU: 50
-        
 
   imagePullSecrets: []
 
@@ -101,11 +96,7 @@ backend:
 
   securityContext: {}
 
-  resources: 
-     limits:
-       cpu: 500m
-      requests:
-       cpu: 200m
+  resources: {}
 
   nodeSelector: {}
 

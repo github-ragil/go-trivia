@@ -34,6 +34,6 @@ spec:
     kind: Deployment
     name: {{ include "triviafrontend-deployment.fullname" . }}
 {{- with .Values.frontend.hpa.metrics }}
-  targetCPUUtilizationPercentage: {{ .Values.frontend.hpa.targetCPU }}
+   targetCPUUtilizationPercentage: {{ .Values.frontend.hpa.targetCPU }}
 {{- end }}
 {{- end }}
