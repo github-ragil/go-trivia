@@ -28,11 +28,7 @@ frontend:
     enabled: false
     maxReplica: 3
     minReplica: 1
-    metrics:
-      - type: Resource
-        resource:
-          name: cpu
-          targetAverageUtilization: 60
+    targetCPU: 50
 
   imagePullSecrets: []
 
@@ -91,11 +87,7 @@ backend:
     enabled: false
     maxReplica: 3
     minReplica: 1
-    metrics:
-      - type: Resource
-        resource:
-          name: cpu
-          targetAverageUtilization: 60
+    targetCPU: 50
 
   imagePullSecrets: []
 
