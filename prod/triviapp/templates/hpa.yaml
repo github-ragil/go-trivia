@@ -14,8 +14,7 @@ spec:
     kind: Deployment
     name: {{ include "triviabackend-deployment.fullname" . }}
 {{- with .Values.backend.hpa.metrics }}
-  metrics:
-    {{- toYaml . | nindent 4 }}
+  targetCPUUtilizationPercentage: {{ .Values.backend.hpa.targetCPU }}
 {{- end }}
 {{- end }}
 ---
@@ -35,7 +34,6 @@ spec:
     kind: Deployment
     name: {{ include "triviafrontend-deployment.fullname" . }}
 {{- with .Values.frontend.hpa.metrics }}
-  metrics:
-    {{- toYaml . | nindent 4 }}
+  targetCPUUtilizationPercentage: {{ .Values.frontend.hpa.targetCPU }}
 {{- end }}
 {{- end }}
