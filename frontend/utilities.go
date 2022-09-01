@@ -7,7 +7,9 @@ import (
 )
 
 func logPrint(message string, status bool) {
-	now := time.Now().String()
+	loc, _ := time.LoadLocation("Asia/Jakarta")
+
+	now := time.Now().In(loc).String()
 	var slog string
 	if status {
 		slog = "OK"
