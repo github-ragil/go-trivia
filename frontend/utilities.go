@@ -19,7 +19,7 @@ func logPrint(message string, status bool) {
 }
 
 func retrieveDate() (nowmonth string, nowdate int) {
-	now := time.Now()
+	now := time.Date(2021, 8, 15, 14, 30, 45, 100, time.Local)
 	nowmonth = now.Month().String()
 	nowdate = now.Day()
 

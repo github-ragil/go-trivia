@@ -14,7 +14,7 @@ func getEnv(key, fallback string) string {
 }
 
 func retrieveDate() (nowmonth int, nowdate int) {
-	now := time.Now()
+	now := time.Date(2021, 8, 15, 14, 30, 45, 100, time.Local)
 	nowmonth = int(now.Month())
 	nowdate = now.Day()
 
