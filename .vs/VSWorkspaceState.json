@@ -1,8 +1,7 @@
 {
   "ExpandedNodes": [
     "",
-    "\\backend",
-    "\\frontend"
+    "\\backend"
   ],
   "SelectedNode": "\\backend\\utilities.go",
   "PreviewInSolutionExplorer": false
