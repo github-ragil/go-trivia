@@ -117,8 +117,8 @@ spec:
             httpGet:
               path: /ping
               port: {{ .Values.frontend.image.ports.containerPort }}
-              initialDelaySeconds: 10   
-              periodSeconds: 2 
+            initialDelaySeconds: 10   
+            periodSeconds: 2 
           resources:
             limits:
               cpu: 500m
