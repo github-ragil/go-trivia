@@ -4,4 +4,4 @@ sudo docker build /go-trivia/backend/. -t mraagil/trivia-backend:prod
 sudo docker push mraagil/trivia-backend:prod
 sudo docker push mraagil/trivia-frontend:prod
 su ubuntu -c 'kubectl create namespace prod'
-su ubuntu -c 'cd /go-trivia/prod && make uninstall namespace=prod && make install namespace=prod frontendhpa=true backendhpa=true'
+su ubuntu -c 'cd /go-trivia/prod && make install namespace=prod frontendhpa=true backendhpa=true && make upgrade namespace=prod frontendhpa=true backendhpa=true'

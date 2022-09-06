@@ -2,7 +2,7 @@ frontendcount = 1
 backendcount = 1
 frontendhpa = false
 backendhpa = false
-namespace = default
+namespace = prod
 frontendtype = NodePort
 appname = mraagil
 
